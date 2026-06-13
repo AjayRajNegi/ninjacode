@@ -1,5 +1,7 @@
+import type { KeyBinding } from "@opentui/core";
 import { EmptyBorder } from "./border";
 import { StatusBar } from "./status-bar";
+import { createCliRenderer, TextareaRenderable } from "@opentui/core";
 
 type Props = {
   onSubmit: (text: string) => void;
@@ -21,8 +23,13 @@ export function Input({ onSubmit, disabled = false }: Props) {
         >
           <textarea
             focused={!disabled}
+            keyBindings={[
+              { name: "return", shift: true, action: "newline" },
+              { name: "enter", ctrl: true, action: "submit" },
+            ]}
             placeholder={`Ask anything... "Fix a bug in the database"`}
           />
+
           <StatusBar />
         </box>
       </box>
