@@ -2,6 +2,7 @@ import type { KeyBinding } from "@opentui/core";
 import { EmptyBorder } from "./border";
 import { StatusBar } from "./status-bar";
 import { createCliRenderer, TextareaRenderable } from "@opentui/core";
+import { CommandMenu } from "./command-menu";
 
 type Props = {
   onSubmit: (text: string) => void;
@@ -21,6 +22,18 @@ export function Input({ onSubmit, disabled = false }: Props) {
           width="100%"
           gap={1}
         >
+          {true && (
+            <box
+              position="absolute"
+              bottom="100%"
+              left={0}
+              width="100%"
+              backgroundColor="#1A1A24"
+              zIndex={10}
+            >
+              {/* <CommandMenu query="" /> */}
+            </box>
+          )}
           <textarea
             focused={!disabled}
             keyBindings={[
