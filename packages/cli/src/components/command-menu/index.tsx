@@ -11,7 +11,7 @@ const COMMAND_COL_WIDTH =
 type CommandMenuProps = {
   query: string;
   selectedIndex: number;
-  scrollRef: RefObject<ScrollBoxRenderable> | null;
+  scrollRef: RefObject<ScrollBoxRenderable | null>;
   onSelect: (index: number) => void;
   onExecute: (index: number) => void;
 };
