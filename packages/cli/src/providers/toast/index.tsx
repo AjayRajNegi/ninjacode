@@ -31,7 +31,7 @@ export function useToast(): ToastContextValue {
 type ToastProviderProps = {
   children: ReactNode;
 };
-export function ToastProviderProps({ children }: ToastProviderProps) {
+export function ToastProvider({ children }: ToastProviderProps) {
   const [currentToast, setCurrentToast] = useState<ToastOptions | null>(null);
   const timeoutHandleRef = useRef<NodeJS.Timeout>(null);
 

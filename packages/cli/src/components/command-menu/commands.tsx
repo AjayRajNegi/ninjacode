@@ -17,7 +17,7 @@ export const COMMANDS: Command[] = [
     description: "Start a new conversation",
     value: "/new",
     action: (ctx) => {
-      // ctx.navigate("/");
+      ctx.toast.show({ message: "Starting new conversation..." });
     },
   },
   {
