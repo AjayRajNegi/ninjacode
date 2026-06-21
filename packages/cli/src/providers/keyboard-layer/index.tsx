@@ -1,5 +1,11 @@
 import { useKeyboard, useRenderer } from "@opentui/react";
-import { createContext, useCallback, useRef, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 
 type Responder = () => boolean;
 
@@ -77,4 +83,22 @@ export function KeyboardLayerProvider({
 
     renderer.destroy();
   });
+
+  return (
+    <KeyboardLayerContext.Provider
+      value={{ push, pop, isTopLayer, setResponder }}
+    >
+      {children}
+    </KeyboardLayerContext.Provider>
+  );
+}
+
+export function useKeyboardLayer() {
+  const context = useContext(KeyboardLayerContext);
+  if (!context) {
+    throw new Error(
+      "useKeyboardLayer must be used within a KeyboardLayerProvider",
+    );
+  }
+  return context;
 }
