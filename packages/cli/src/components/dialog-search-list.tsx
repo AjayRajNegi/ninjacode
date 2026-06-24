@@ -1,4 +1,8 @@
-import type { InputRenderable, ScrollBoxRenderable } from "@opentui/core";
+import {
+  TextAttributes,
+  type InputRenderable,
+  type ScrollBoxRenderable,
+} from "@opentui/core";
 import { useCallback, useRef, useState, type ReactNode } from "react";
 import { useKeyboardLayer } from "../providers/keyboard-layer";
 import { useKeyboard } from "@opentui/react";
@@ -87,4 +91,38 @@ export function DialogSearchList<T>({
       });
     }
   });
+
+  return (
+    <box flexDirection="column" gap={1}>
+      <input
+        ref={inputRef}
+        placeholder={placeholder}
+        focused
+        onContentChange={handleContentChange}
+      />
+      {filtered.length === 0 ? (
+        <text attributes={TextAttributes.DIM}>{emptyText}</text>
+      ) : (
+        <scrollbox ref={scrollRef} height={visibleHeight}>
+          {filtered.map((item, i) => {
+            const isSelected = i === selectedIndex;
+            return (
+              <box
+                key={getKey(item)}
+                flexDirection="row"
+                height={1}
+                overflow="hidden"
+                backgroundColor={isSelected ? "#89B4FA" : undefined}
+                onMouseMove={() => {
+                  setSelectedIndex(i);
+                  if (onHighlight) onHighlight(item);
+                }}
+                onMouseDown={() => onSelect(item)}
+              ></box>
+            );
+          })}
+        </scrollbox>
+      )}
+    </box>
+  );
 }
