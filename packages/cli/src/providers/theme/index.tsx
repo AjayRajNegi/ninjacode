@@ -7,7 +7,13 @@ import {
   type ThemeColors,
 } from "../../theme";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { createContext, useContext } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  type ReactNode,
+} from "react";
 
 const CONFIG_DIR = join(homedir(), ".ninjacode");
 const THEME_PREFRENCES_PATH = join(CONFIG_DIR, "prefernces.json");
@@ -60,6 +66,26 @@ export function useTheme(): ThemeContextValue {
   if (!value) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
-
   return value;
+}
+
+type ThemeProviderProps = {
+  children: ReactNode;
+};
+
+export function ThemeProvider({ children }: ThemeProviderProps) {
+  const [currentTheme, setCurrentTheme] = useState<Theme>(getInitialTheme);
+
+  const setTheme = useCallback((theme: Theme) => {
+    setCurrentTheme(theme);
+    persistTheme(theme);
+  }, []);
+
+  return (
+    <ThemeContext.Provider
+      value={{ colors: currentTheme.colors, currentTheme, setTheme }}
+    >
+      {children}
+    </ThemeContext.Provider>
+  );
 }
