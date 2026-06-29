@@ -12,6 +12,7 @@ import {
   type ToastVariant,
 } from "./types";
 import { useTerminalDimensions } from "@opentui/react";
+import { useTheme } from "../theme";
 
 export type ToastContextValue = {
   show: (options: ToastOptions) => void;
@@ -79,19 +80,16 @@ type ToastProps = {
 
 function Toast({ currentToast }: ToastProps) {
   const { width } = useTerminalDimensions();
-  //   const { colors } = useTheme();
+  const { colors } = useTheme();
 
   if (!currentToast) {
     return null;
   }
 
   const variantColors: Record<ToastVariant, string> = {
-    // success: colors.success,
-    // error: colors.error,
-    // info: colors.info,
-    success: "rgb(42, 214, 85)",
-    error: "rgb(150, 61, 47)",
-    info: "#56D6C2",
+    success: colors.success,
+    error: colors.error,
+    info: colors.info,
   };
 
   const borderColor = currentToast.variant
@@ -110,10 +108,10 @@ function Toast({ currentToast }: ToastProps) {
       paddingRight={2}
       paddingTop={1}
       paddingBottom={1}
-      backgroundColor="#56D6C2"
-      borderColor="#ffffff"
+      backgroundColor={colors.surface}
+      borderColor={borderColor}
       border={["left", "right"]}
-      //customBorderChars={SplitBorderChars}
+      // customBorderChars={SplitBorderChars}
     >
       <box flexDirection="column" gap={1} width="100%">
         <text fg="#E1E1E1" wrapMode="word" width="100%">

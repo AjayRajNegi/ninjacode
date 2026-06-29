@@ -10,6 +10,7 @@ import type { Command } from "./command-menu/types";
 import { useToast } from "../providers/toast";
 import { useKeyboardLayer } from "../providers/keyboard-layer";
 import { useDialog } from "../providers/dialog";
+import { useTheme } from "../providers/theme";
 
 type Props = {
   onSubmit: (text: string) => void;
@@ -21,6 +22,7 @@ export function Input({ onSubmit, disabled = false }: Props) {
   const onSubmitRef = useRef<() => void>(() => {});
   const renderer = useRenderer();
   const toast = useToast();
+  const { colors } = useTheme();
   const dialog = useDialog();
   const { isTopLayer, setResponder } = useKeyboardLayer();
 
@@ -115,7 +117,11 @@ export function Input({ onSubmit, disabled = false }: Props) {
 
   return (
     <box width="100%" alignItems="center">
-      <box customBorderChars={{ ...EmptyBorder, vertical: "┃" }} width="100%">
+      <box
+        customBorderChars={{ ...EmptyBorder, vertical: "┃" }}
+        width="100%"
+        borderColor={colors.primary}
+      >
         <box
           position="relative"
           justifyContent="center"
@@ -131,7 +137,7 @@ export function Input({ onSubmit, disabled = false }: Props) {
               bottom="100%"
               left={0}
               width="100%"
-              backgroundColor="#1A1A24"
+              backgroundColor={colors.surface}
               zIndex={10}
             >
               <CommandMenu
