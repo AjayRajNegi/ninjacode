@@ -5,6 +5,7 @@
 //   SessionsDialogContent,
 //   ThemeDialogContent,
 // } from "../dialogs";
+import { ThemeDialogContent } from "../dialogs";
 import type { Command } from "./types";
 
 // import { performLogin } from "../../lib/oauth";
@@ -17,7 +18,7 @@ export const COMMANDS: Command[] = [
     description: "Start a new conversation",
     value: "/new",
     action: (ctx) => {
-      // ctx.navigate("/");
+      ctx.toast.show({ message: "Starting new conversation..." });
     },
   },
   {
@@ -68,10 +69,10 @@ export const COMMANDS: Command[] = [
     description: "Change color theme",
     value: "/theme",
     action: (ctx) => {
-      // ctx.dialog.open({
-      //   title: "Select Theme",
-      //   children: <ThemeDialogContent />,
-      // });
+      ctx.dialog.open({
+        title: "Select Theme",
+        children: <ThemeDialogContent />,
+      });
     },
   },
   {
