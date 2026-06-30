@@ -4,7 +4,7 @@ import { Header } from "./components/header";
 import { Input } from "./components/input-bar";
 import { ToastProvider } from "./providers/toast";
 import { KeyboardLayerProvider } from "./providers/keyboard-layer";
-import { DialogProvider } from "./components/dialogs";
+import { DialogProvider } from "./providers/dialog";
 import { ThemeProvider, useTheme } from "./providers/theme";
 
 function ThemedRoot() {
